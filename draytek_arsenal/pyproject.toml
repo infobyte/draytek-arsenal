@@ -1,0 +1,10 @@
+[project]
+name = "draytek_arsenal"
+version = "0.0.1"
+authors = [
+  { name="Octavio Gianatiempo", email="ogianatiempo@faradaysec.com" },
+  { name="Gaston Aznarez", email="gaznarez@faradaysec.com" }
+]
+description = "A package to help security assignments on Draytek firmwaresDraytek Arsenal is a set of tools designed to enhance the security of Draytek edge devices. Written as a Python package and utilizing Docker, this toolkit empowers defenders and researchers to analyze, modify, and strengthen Draytek firmware. With features like firmware format parsing, module management, and integrity-checking module compilation, Draytek Arsenal offers a comprehensive solution for firmware analysis and customization. Accessible to the cybersecurity community under a MIT license, this toolset encourages collaboration and transparency in the pursuit of a more secure internet."
+readme = "README.md"
+requires-python = ">=3.10"

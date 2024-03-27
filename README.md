@@ -15,20 +15,13 @@ We initially developed this as a internal tool. Just as a set of scripts but sho
 __Requirements:__
 
 * python3
-* Docker
 
 ### Installation ###
-
-Build `mips-tools`:
-
-```bash
-$ cd mips-tools
-$ docker build . -t mips-tools
-```
 
 Install `draytek_arsenal`:
 ```bash
 $ cd draytek_arsenal
+$ python3 -m pip install -r requirements
 $ python3 -m pip install .
 ```
 
