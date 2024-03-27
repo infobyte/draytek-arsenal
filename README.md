@@ -9,3 +9,37 @@ In our pursuit of a more secure internet, we are making this set of tools access
 
 ## Note
 We initially developed this as a internal tool. Just as a set of scripts but showed great potential, prompting us to make it open source. Since then, we are working to integrate these scripts into the python package you will find in this repo, and to make them compatible with other device models.
+
+## Get started ##
+
+__Requirements:__
+
+* python3
+* Docker
+
+### Installation ###
+
+Build `mips-tools`:
+
+```bash
+$ cd mips-tools
+$ docker build . -t mips-tools
+```
+
+Install `draytek_arsenal`:
+```bash
+$ cd draytek_arsenal
+$ python3 -m pip install .
+```
+
+Test the installation:
+```
+$ python3 -m draytek_arsenal
+```
+
+### Install as developer ###
+
+This installation will be affected by local code changes
+```
+$ python3 -m pip install -e .
+```
