@@ -92,6 +92,7 @@ class DLM():
         key = self.generate_digest(self._key1, self._key2)
 
         print("[*] Decrypting data")
+
         dlm_data_decrypted = b''
         idx = 0
         while dlm_data_len - idx >= 8:
@@ -107,6 +108,7 @@ class DLM():
         hexdump(dlm_data_decrypted[:0x18])
         # Add checks for compression_header size and digest
         print("[*] Decompressing")
+
         dlm_data_decrypted_decompressed = lz4.decompress(dlm_data_decrypted[0x18:])
         return dlm_data_decrypted_decompressed
 
