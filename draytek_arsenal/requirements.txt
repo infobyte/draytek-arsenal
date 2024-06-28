@@ -1,6 +1,6 @@
 kaitaistruct==0.10
 PyYAML==6.0.1
-requests==2.31.0
+requests==2.32.0
 lief==0.14.1
 lz4==4.3.3
 capstone==5.0.1
