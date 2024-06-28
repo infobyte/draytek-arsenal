@@ -10,3 +10,5 @@ PyYAML==6.0.1
 requests==2.32.0
 urllib3==2.2.2
 hexdump==3.3
+capstone==5.0.1
+hexdump==3.3
