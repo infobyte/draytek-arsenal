@@ -3,7 +3,7 @@ from typing import Any, Dict, List
 import docker
 import os
 
-MIPS_TOOLS_IMAGE = "mips-tools"
+MIPS_TOOLS_IMAGE = "draytek-arsenal"
 
 class MipsMergeCommand(Command):
 
