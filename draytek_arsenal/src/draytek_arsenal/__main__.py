@@ -1,6 +1,7 @@
 import os
 import argparse
 import importlib.util
+import sys
 import draytek_arsenal
 from draytek_arsenal.commands.base import Command
 from typing import List, Type
@@ -47,25 +48,45 @@ def create_parser(command: Command) -> argparse.ArgumentParser:
 def main(commands):
     parser = argparse.ArgumentParser(
         description="Draytek firmware analysis tools",
-        prog="draytek-tools"
+        prog="draytek-arsenal",
+        add_help=False
     )
+
+    parser.error = lambda _self, _msg: None
+
     parser.add_argument(
         "command",
         choices=[command.name() for command in commands],
         help="The command to execute"
     )
 
-    args, remaining_argv = parser.parse_known_args()
+    try:
+        args, remaining_argv = parser.parse_known_args()
+
+    except:
+        if not "--help" in sys.argv:
+            print(f"Missing or invalid command.\n")
+            parser.print_help()
+            exit(1)
+
+        parser.print_help()
+        exit(0)
 
     # Get the selected command
     selected_command = next((command for command in commands if command.name() == args.command), None)
     if selected_command is not None:
         command_parser = create_parser(selected_command)
         command_args = command_parser.parse_args(remaining_argv)
-        selected_command.execute(command_args)
+
+        if "--help" in sys.argv:
+            command_parser.print_help()
+        else:
+            selected_command.execute(command_args)
+
 
     else:
-        print("Invalid command. Use --help for usage information.")
+        print(f"Invalid command '{args.command}'.")
+        parser.print_help()
 
 if __name__ == "__main__":
     commands = load_commands(os.path.dirname(draytek_arsenal.commands.__file__))
