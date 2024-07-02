@@ -14,9 +14,16 @@ We initially developed this as a internal tool. Just as a set of scripts but sho
 
 __Requirements:__
 
-* python3
+* Python3
+* Docker (Optional)
 
 ### Installation ###
+
+(Optional) Create and activate python virtual environment:
+```bash
+$ python3 -m virtualenv .venv
+$ source .venv/bin.activate
+```
 
 Install `draytek_arsenal`:
 ```bash
@@ -35,4 +42,138 @@ $ python3 -m draytek_arsenal
 This installation will be affected by local code changes
 ```
 $ python3 -m pip install -e .
+```
+
+### Mips-tools ###
+
+Some commands as `mips_compile` and `mips_merge` needs a complementary Docker image in order to work.  
+If it has not been downloaded this error message is shown:
+```
+[x] Image 'draytek-arsenal' not found. Please build or download the image.
+```
+
+You could download the image with the following command:
+
+```bash
+$ docker pull ghcr.io/infobyte/draytek-arsenal:main
+```
+
+Or build it with:
+```bash
+$ docker build -t draytek-arsenal ./mips-tools
+```
+
+
+## Usage ##
+
+`draytek-arsenal` is a set of scripts collected in a python package. So, to use it you should select a command:
+
+```
+usage: draytek-arsenal [-h] [command] args..
+```
+
+Some of the commands are:
+
+
+### parse_firmware ###
+
+Parse and show information of a Draytec firmware.
+
+```
+usage: parse_firmware [-h] firmware
+
+positional arguments:
+  firmware    Path to the firmware
+
+options:
+  -h, --help  show this help message and exit
+```
+
+### extract ###
+
+Command used to extract and decompress Draytek packages.
+
+```
+usage: extract [-h] [--rtos RTOS] firmware
+
+positional arguments:
+  firmware              Path to the firmware
+
+options:
+  -h, --help            show this help message and exit
+  --rtos RTOS, -r RTOS  Where to extract and decompress the RTOS
+```
+
+### dlm_hash ###
+
+Get the hash of a DLM module.
+
+```
+usage: dlm_hash [-h] [-c] dlm
+
+positional arguments:
+  dlm         Path to the dlm
+
+options:
+  -h, --help  show this help message and exit
+  -c          Print as .c code
+```
+
+### find_loading_addr ###
+
+Find the address where the RTOS if loaded with the first jump instruction.
+
+```
+usage: find_loading_addr [-h] rtos
+
+positional arguments:
+  rtos        Path to the rtos
+
+options:
+  -h, --help  show this help message and exit
+```
+
+### find_endianness ###
+
+Checks if the RTOS is little or big endian.
+
+```
+usage: find_endianness [-h] rtos
+
+positional arguments:
+  rtos        Path to the rtos
+
+options:
+  -h, --help  show this help message and exit
+```
+
+### mips_compile ###
+
+Compile MIPS relocatable binary (used for DLMs).
+
+```
+usage: mips_compile [-h] output [input ...]
+
+positional arguments:
+  output      Output file
+  input       Output file
+
+options:
+  -h, --help  show this help message and exit
+```
+
+### mips_merge ###
+
+Merge two ELF MIPS relocatable files.
+
+```
+usage: mips_merge [-h] first_input second_input output
+
+positional arguments:
+  first_input   First input file
+  second_input  Second input file
+  output        Output file
+
+options:
+  -h, --help    show this help message and exit
 ```
