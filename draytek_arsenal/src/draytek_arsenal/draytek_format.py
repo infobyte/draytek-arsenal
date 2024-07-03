@@ -104,7 +104,7 @@ class Draytek(KaitaiStruct):
 
         def _read(self):
             self.rtos_size = self._io.read_u4be()
-            self.data = self._io.read_bytes((self.rtos_size - 4))
+            self.data = self._io.read_bytes((self.rtos_size))
             self.padding = self._io.read_bytes((8 - (self._io.pos() % 8)))
 
 
