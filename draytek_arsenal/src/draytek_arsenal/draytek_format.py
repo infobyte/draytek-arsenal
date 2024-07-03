@@ -87,7 +87,6 @@ class Draytek(KaitaiStruct):
                 self.padding = self._io.read_bytes((4 - (self._io.pos() % 4)))
 
 
-
     class U3(KaitaiStruct):
         def __init__(self, _io, _parent=None, _root=None):
             self._io = _io
