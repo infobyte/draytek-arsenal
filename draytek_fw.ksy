@@ -6,8 +6,8 @@ meta:
 seq:
   - id: bin
     type: bin_section
-  - id: webfs
-    type: webfs_section
+  - id: web
+    type: web_section
     
 types:
   u3:
@@ -49,9 +49,10 @@ types:
       - id: rtos_size
         type: u4
       - id: data
-        size: rtos_size - 4
+        size: rtos_size
       - id: padding
-        size: 8 - _io.pos % 8 # Check if there is no other data
+        size: 4 - _io.pos % 4 # Check if there is no other data
+        if: _io.pos % 4 != 0
         
   dlm:
     seq:
@@ -76,7 +77,7 @@ types:
       checksum:
         value: not_checksum ^ 0xffffffff
         
-  webfs_header:
+  web_header:
     seq:
       - id: size
         type: u4
@@ -86,10 +87,10 @@ types:
       adj_size:
         value: (((size + 3) >> 2) -1 ) << 2
         
-  webfs_section:
+  web_section:
     seq:
       - id: header
-        type: webfs_header
+        type: web_header
       - id: data
         size: header.next_section
       - id: padding

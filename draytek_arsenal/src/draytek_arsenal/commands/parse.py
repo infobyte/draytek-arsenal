@@ -39,13 +39,13 @@ class ParseCommand(Command):
                 "checksum": hex(struct.bin.checksum)
                 
             },
-            "webfs": {
+            "web": {
                 "header": {
-                    "size": hex(struct.webfs.header.size),
-                    "adjusted_size": hex(struct.webfs.header.adj_size),
-                    "next_section": hex(struct.webfs.header.next_section)
+                    "size": hex(struct.web.header.size),
+                    "adjusted_size": hex(struct.web.header.adj_size),
+                    "next_section": hex(struct.web.header.next_section)
                 },
-                "checksum": hex(struct.webfs.checksum)
+                "checksum": hex(struct.web.checksum)
             }
         }
 

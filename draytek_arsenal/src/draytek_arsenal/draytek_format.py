@@ -16,7 +16,7 @@ class Draytek(KaitaiStruct):
 
     def _read(self):
         self.bin = Draytek.BinSection(self._io, self, self._root)
-        self.webfs = Draytek.WebfsSection(self._io, self, self._root)
+        self.web = Draytek.WebSection(self._io, self, self._root)
 
     class BinSection(KaitaiStruct):
         def __init__(self, _io, _parent=None, _root=None):
@@ -30,28 +30,6 @@ class Draytek(KaitaiStruct):
             self.bootloader = Draytek.Bootloader(self._io, self, self._root)
             self.rtos = Draytek.Rtos(self._io, self, self._root)
             self.dlm = Draytek.Dlm(self._io, self, self._root)
-            self.not_checksum = self._io.read_u4be()
-
-        @property
-        def checksum(self):
-            if hasattr(self, '_m_checksum'):
-                return self._m_checksum
-
-            self._m_checksum = (self.not_checksum ^ 4294967295)
-            return getattr(self, '_m_checksum', None)
-
-
-    class WebfsSection(KaitaiStruct):
-        def __init__(self, _io, _parent=None, _root=None):
-            self._io = _io
-            self._parent = _parent
-            self._root = _root if _root else self
-            self._read()
-
-        def _read(self):
-            self.header = Draytek.WebfsHeader(self._io, self, self._root)
-            self.data = self._io.read_bytes(self.header.next_section)
-            self.padding = self._io.read_bytes(((self.header.size - self.header.next_section) - 12))
             self.not_checksum = self._io.read_u4be()
 
         @property
@@ -104,8 +82,10 @@ class Draytek(KaitaiStruct):
 
         def _read(self):
             self.rtos_size = self._io.read_u4be()
-            self.data = self._io.read_bytes((self.rtos_size))
-            self.padding = self._io.read_bytes((8 - (self._io.pos() % 8)))
+            self.data = self._io.read_bytes(self.rtos_size)
+            if (self._io.pos() % 4) != 0:
+                self.padding = self._io.read_bytes((4 - (self._io.pos() % 4)))
+
 
 
     class U3(KaitaiStruct):
@@ -166,7 +146,29 @@ class Draytek(KaitaiStruct):
             return getattr(self, '_m_product_number', None)
 
 
-    class WebfsHeader(KaitaiStruct):
+    class WebSection(KaitaiStruct):
+        def __init__(self, _io, _parent=None, _root=None):
+            self._io = _io
+            self._parent = _parent
+            self._root = _root if _root else self
+            self._read()
+
+        def _read(self):
+            self.header = Draytek.WebHeader(self._io, self, self._root)
+            self.data = self._io.read_bytes(self.header.next_section)
+            self.padding = self._io.read_bytes(((self.header.size - self.header.next_section) - 12))
+            self.not_checksum = self._io.read_u4be()
+
+        @property
+        def checksum(self):
+            if hasattr(self, '_m_checksum'):
+                return self._m_checksum
+
+            self._m_checksum = (self.not_checksum ^ 4294967295)
+            return getattr(self, '_m_checksum', None)
+
+
+    class WebHeader(KaitaiStruct):
         def __init__(self, _io, _parent=None, _root=None):
             self._io = _io
             self._parent = _parent

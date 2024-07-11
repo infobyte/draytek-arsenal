@@ -124,7 +124,7 @@ class ExtractCommand(Command):
                 print(f"[*] Writing decompressed FS to tmp file: {tmp_fs.name}")
                 lz4 = Lz4()
                 tmp_fs.write(
-                    lz4.decompress(fw_struct.webfs.data)
+                    lz4.decompress(fw_struct.web.data)
                 )
 
                 if not path.exists(args.fs):

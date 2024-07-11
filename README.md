@@ -28,7 +28,7 @@ $ source .venv/bin.activate
 Install `draytek_arsenal`:
 ```bash
 $ cd draytek_arsenal
-$ python3 -m pip install -r requirements
+$ python3 -m pip install -r requirements.txt
 $ python3 -m pip install .
 ```
 
