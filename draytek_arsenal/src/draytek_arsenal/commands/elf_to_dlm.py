@@ -19,8 +19,22 @@ class ElfToDlmCommand(Command):
     def args() -> List[Dict[str, Any]]:
         return [
             {"flags": ["elf"], "kwargs": {"type": str, "help": "Path to the file to convert"},},
+            {
+                "flags": ["key1"],
+                "kwargs": {
+                    "type": str,
+                    "help": "First key used to encrypt DLMs",
+                }
+            },
+            {
+                "flags": ["key2"],
+                "kwargs": {
+                    "type": str,
+                    "help": "First key used to encrypt DLMs",
+                }
+            },
             {"flags": ["output"], "kwargs": {"type": str, "help": "Output DLM file path"}},
-            {"flags": ["--web-headers"], "kwargs": {"action": "store_true", "help": "Append web headers"}}
+            {"flags": ["--web-headers"], "kwargs": {"action": "store_true", "help": "Append web headers"}},
         ]
 
     @staticmethod
@@ -30,7 +44,7 @@ class ElfToDlmCommand(Command):
 
         print(f"[*] Crating {dlm_path} from {elf_path}")
 
-        dlm = DLM()
+        dlm = DLM(bytes.fromhex(args.key1), bytes.fromhex(args.key2))
         with open(elf_path, 'rb') as f:
             data = f.read()
 
