@@ -17,6 +17,7 @@ class TriggerAppeUpdateCommand(Command):
     def args() -> List[Dict[str, Any]]:
         return [
             {"flags": ["ip"], "kwargs": {"type": str, "help": "IP of the router"}},
+            {"flags": ["server"], "kwargs": {"type": str, "help": "IP of the server"}},
             {
                 "flags": ["--user"],
                 "kwargs": {"type": str, "help": "User of the web console", "default": "admin"}
@@ -57,7 +58,7 @@ class TriggerAppeUpdateCommand(Command):
 
         data = {
             "sltInterface": 1,
-            "sAppeDownSrv": "104.248.120.60",
+            "sAppeDownSrv": args.server,
             "sWebAppedownMsg": "",
             "iSchedUpdate": 1,
             "sltHour_every": 1,
