@@ -1,4 +1,4 @@
-# Draytek Arsenal: Observability and hardening toolset for Draytek edge devices.
+# Draytek Arsenal: Observability and hardening toolkit for Draytek edge devices.
 Advanced attackers are increasingly choosing edge devices as targets. However, these devices are controlled by closed-source software known as firmware, often distributed in a proprietary format. This is an added difficulty for defenders and researchers, who must understand how to extract firmware to assess its security.
 
 This is more than just a hypothetical scenario, as we discovered recently when a client was compromised. With Draytek equipment at the edge of their infrastructure, the natural question was: Could this be the attackers' entry point? Over 500k Draytek devices are exposed to the Internet. Yet, no working tool exists to extract their firmware and assist researchers and defenders working with these devices.
@@ -7,8 +7,11 @@ During our assessment, we reverse-engineered Draytek's firmware format, which co
 
 In our pursuit of a more secure internet, we are making this set of tools accessible to the community, enabling observability, hardening, transparency, and vulnerability research on Draytek edge devices
 
+## Presentation
+This tool was developed as part of a research project that was presented at [DEFCON HHV and La Villa Hacker](https://defcon.org/html/defcon-32/dc-32-creator-talks.html#54642). You can find the slides and PoC videos [here](https://drive.google.com/drive/folders/1G-fvAntkuCg9Hu_MeMSdYTCd7KAlIywk?usp=sharing). 
+
 ## Note
-We initially developed this as a internal tool. Just as a set of scripts but showed great potential, prompting us to make it open source. Since then, we are working to integrate these scripts into the python package you will find in this repo, and to make them compatible with other device models.
+We initially developed this as an internal tool. It was just a set of scripts, but it showed great potential, prompting us to make it open-source. Since then, we have been working to integrate these scripts into the Python package you will find in this repo and make them compatible with other device models.
 
 ## Get started ##
 
