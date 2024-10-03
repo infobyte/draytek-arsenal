@@ -8,10 +8,11 @@ if getattr(kaitaistruct, 'API_VERSION', (0, 9)) < (0, 9):
     raise Exception("Incompatible Kaitai Struct Python API: 0.9 or later is required, but you have %s" % (kaitaistruct.__version__))
 
 class Draytek(KaitaiStruct):
-    def __init__(self, _io, _parent=None, _root=None):
+    def __init__(self, has_dlm, _io, _parent=None, _root=None):
         self._io = _io
         self._parent = _parent
         self._root = _root if _root else self
+        self.has_dlm = has_dlm
         self._read()
 
     def _read(self):
@@ -29,7 +30,9 @@ class Draytek(KaitaiStruct):
             self.header = Draytek.BinHeader(self._io, self, self._root)
             self.bootloader = Draytek.Bootloader(self._io, self, self._root)
             self.rtos = Draytek.Rtos(self._io, self, self._root)
-            self.dlm = Draytek.Dlm(self._io, self, self._root)
+            if self._parent.has_dlm:
+                self.dlm = Draytek.Dlm(self._io, self, self._root)
+
             self.not_checksum = self._io.read_u4be()
 
         @property

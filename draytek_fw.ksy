@@ -2,6 +2,10 @@ meta:
   id: draytek
   file-extension: all
   endian: be
+
+params:
+  - id: has_dlm
+    type: bool
   
 seq:
   - id: bin
@@ -71,6 +75,7 @@ types:
         type: rtos
       - id: dlm
         type: dlm
+        if: _parent.has_dlm
       - id: not_checksum
         type: u4
     instances:

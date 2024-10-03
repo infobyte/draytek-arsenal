@@ -1,7 +1,7 @@
 from draytek_arsenal.commands.base import Command
-from draytek_arsenal.draytek_format import Draytek
 import yaml
 from typing import Any, Dict, List
+from draytek_arsenal.format import parse_firmware
 
 class ParseCommand(Command):
 
@@ -20,7 +20,8 @@ class ParseCommand(Command):
     
     @staticmethod
     def execute(args):
-        struct = Draytek.from_file(args.firmware)
+
+        struct = parse_firmware(args.firmware)
 
 
         object = {

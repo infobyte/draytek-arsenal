@@ -1,6 +1,6 @@
 from typing import Any, Dict, List
 from draytek_arsenal.commands.base import Command
-from draytek_arsenal.draytek_format import Draytek
+from draytek_arsenal.format import parse_firmware
 from draytek_arsenal.compression import Lz4
 from draytek_arsenal.fs import PFSExtractor
 from os import path
@@ -68,7 +68,7 @@ class ExtractCommand(Command):
   
     @staticmethod
     def execute(args) -> None:
-        fw_struct = Draytek.from_file(args.firmware)
+        fw_struct = parse_firmware(args.firmware)
 
         if args.rtos is None and args.dlm is None and args.fs is None:
             print(f"[x] Nothing to extract. Please set some extraction flag.")
@@ -93,7 +93,11 @@ class ExtractCommand(Command):
                 print(f"[+] RTOS extracted in {args.rtos}")
 
         if args.dlm is not None:
-            if args.dlm_key1 is None or args.dlm_key2 is None:
+
+            if not fw_struct.has_dlm:
+                print(f"[*] Skiping DLMs extraction: the file does not have the magic") 
+
+            elif args.dlm_key1 is None or args.dlm_key2 is None:
                 print(f"[x] One or more keys are not provided")
 
             else:
