@@ -11,7 +11,7 @@ import os
 class ExtractCommand(Command):
     @staticmethod
     def name() -> str:
-        return "extract"
+        return "extract_sb"
 
 
     @staticmethod
@@ -63,7 +63,7 @@ class ExtractCommand(Command):
 
     @staticmethod
     def description() -> str:
-        return "Command used to extract and decompress Draytek packages"
+        return "Command used to extract and decompress Draytek Small Business packages"
 
   
     @staticmethod

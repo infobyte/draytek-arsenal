@@ -92,19 +92,42 @@ options:
   -h, --help  show this help message and exit
 ```
 
-### extract ###
+### extract small business ###
 
-Command used to extract and decompress Draytek packages.
+Command used to extract and decompress Draytek Small Business packages.
 
 ```
-usage: extract [-h] [--rtos RTOS] firmware
+usage: extract_sb [-h] [--rtos RTOS] [--fs FS] [--dlm DLM] [--dlm-key1 DLM_KEY1]
+                  [--dlm-key2 DLM_KEY2]
+                  firmware
 
 positional arguments:
   firmware              Path to the firmware
 
 options:
   -h, --help            show this help message and exit
-  --rtos RTOS, -r RTOS  Where to extract and decompress the RTOS
+  --rtos RTOS, -r RTOS  File path where to extract and decompress the RTOS
+  --fs FS, -f FS        Directory path where to extract and decompress the File
+                        System
+  --dlm DLM, -d DLM     Directory path where to extract and decompress the DLMs
+  --dlm-key1 DLM_KEY1   First key used to decrypt DLMs
+  --dlm-key2 DLM_KEY2   First key used to decrypt DLMs
+```
+
+### extract soho ###
+
+Command used to extract and decompress Draytek SOHO packages
+
+```
+usage: extract_soho [-h] [--fs FS] --key KEY firmware
+
+positional arguments:
+  firmware        Path to the firmware
+
+options:
+  -h, --help      show this help message and exit
+  --fs FS, -f FS  Directory path where to extract and decompress the File System
+  --key KEY       Key used to decrypt
 ```
 
 ### dlm_hash ###

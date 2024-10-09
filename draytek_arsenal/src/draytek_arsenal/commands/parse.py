@@ -2,6 +2,7 @@ from draytek_arsenal.commands.base import Command
 import yaml
 from typing import Any, Dict, List
 from draytek_arsenal.format import parse_firmware
+from draytek_arsenal.draytek_format import Draytek
 
 class ParseCommand(Command):
 
@@ -23,31 +24,40 @@ class ParseCommand(Command):
 
         struct = parse_firmware(args.firmware)
 
-
-        object = {
-            "bin": {
-                "header": {
-                    "size": hex(struct.bin.header.size),
-                    "version_info": hex(struct.bin.header.version_info),
-                    "next_section": hex(struct.bin.header.next_section.value),
-                    "adjusted_size": hex(struct.bin.header.adj_size),
-                    "bootloader_version": struct.bin.header.bootloader_version,
-                    "product_number": struct.bin.header.product_number
+        if isinstance(struct, Draytek):
+            object = {
+                "type": "small_business",
+                "bin": {
+                    "header": {
+                        "size": hex(struct.bin.header.size),
+                        "version_info": hex(struct.bin.header.version_info),
+                        "next_section": hex(struct.bin.header.next_section.value),
+                        "adjusted_size": hex(struct.bin.header.adj_size),
+                        "bootloader_version": struct.bin.header.bootloader_version,
+                        "product_number": struct.bin.header.product_number
+                    },
+                    "rtos": {
+                        "size": hex(struct.bin.rtos.rtos_size)
+                    },
+                    "checksum": hex(struct.bin.checksum)
+                    
                 },
-                "rtos": {
-                    "size": hex(struct.bin.rtos.rtos_size)
-                },
-                "checksum": hex(struct.bin.checksum)
-                
-            },
-            "web": {
-                "header": {
-                    "size": hex(struct.web.header.size),
-                    "adjusted_size": hex(struct.web.header.adj_size),
-                    "next_section": hex(struct.web.header.next_section)
-                },
-                "checksum": hex(struct.web.checksum)
+                "web": {
+                    "header": {
+                        "size": hex(struct.web.header.size),
+                        "adjusted_size": hex(struct.web.header.adj_size),
+                        "next_section": hex(struct.web.header.next_section)
+                    },
+                    "checksum": hex(struct.web.checksum)
+                }
             }
-        }
+
+        else:
+            object = {
+                "type": "SOHO",
+                "nonce": struct.nonce.decode(),
+                "image_start": struct.image_start,
+                "image_len": struct.image_len
+            }
 
         print("[+] Firmware information:\n" + yaml.safe_dump(object))
