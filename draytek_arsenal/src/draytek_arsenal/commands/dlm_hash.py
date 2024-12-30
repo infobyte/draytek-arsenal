@@ -12,13 +12,13 @@ from os.path import basename
 # Mips instructions has 32 bites length and the first 6 are the opcode
 CODE_HASH_MASK = 0xfc
 
-PROGBITS = lief.ELF.SECTION_TYPES.PROGBITS
-NOBITS = lief.ELF.SECTION_TYPES.NOBITS
-WRITE = lief.ELF.SECTION_FLAGS.WRITE
-ALLOC = lief.ELF.SECTION_FLAGS.ALLOC
-EXECINSTR = lief.ELF.SECTION_FLAGS.EXECINSTR
-MERGE = lief.ELF.SECTION_FLAGS.MERGE
-STRINGS = lief.ELF.SECTION_FLAGS.STRINGS
+PROGBITS = lief.ELF.Section.TYPE.PROGBITS
+NOBITS = lief.ELF.Section.TYPE.NOBITS
+WRITE = lief.ELF.Section.FLAGS.WRITE
+ALLOC = lief.ELF.Section.FLAGS.ALLOC
+EXECINSTR = lief.ELF.Section.FLAGS.EXECINSTR
+MERGE = lief.ELF.Section.FLAGS.MERGE
+STRINGS = lief.ELF.Section.FLAGS.STRINGS
 
 
 SECTION_LIST_TEMPLATE_HEADER = "dlm_section_info {}_sections[]= {{\n"
@@ -60,7 +60,7 @@ class DlmHashCommand(Command):
         ]
 
     @staticmethod
-    def check_mask(value: int, mask: lief.ELF.SECTION_FLAGS) -> bool:
+    def check_mask(value: int, mask: lief.ELF.Section.FLAGS) -> bool:
         return value & mask == mask
 
     @staticmethod
