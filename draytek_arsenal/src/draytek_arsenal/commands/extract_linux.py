@@ -11,7 +11,7 @@ from Crypto.Cipher import ChaCha20
 class ExtractCommand(Command):
     @staticmethod
     def name() -> str:
-        return "extract_soho"
+        return "extract_linux"
 
 
     @staticmethod
@@ -39,7 +39,7 @@ class ExtractCommand(Command):
 
     @staticmethod
     def description() -> str:
-        return "Command used to extract and decompress Draytek SOHO packages"
+        return "Command used to extract and decompress Draytek Linux packages"
 
   
     @staticmethod

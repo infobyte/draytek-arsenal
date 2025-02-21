@@ -1,7 +1,7 @@
 import struct
 
 
-class DraytekSoho:
+class DraytekLinux:
     def __init__(self, data: bytes) -> None:
         self._data = data
 

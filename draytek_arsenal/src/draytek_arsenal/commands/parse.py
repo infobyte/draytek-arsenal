@@ -26,7 +26,7 @@ class ParseCommand(Command):
 
         if isinstance(struct, Draytek):
             object = {
-                "type": "small_business",
+                "type": "RTOS",
                 "bin": {
                     "header": {
                         "size": hex(struct.bin.header.size),
@@ -54,7 +54,7 @@ class ParseCommand(Command):
 
         else:
             object = {
-                "type": "SOHO",
+                "type": "Linux",
                 "nonce": struct.nonce.decode(),
                 "image_start": struct.image_start,
                 "image_len": struct.image_len
