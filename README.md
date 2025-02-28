@@ -94,10 +94,10 @@ options:
 
 ### extract small business ###
 
-Command used to extract and decompress Draytek Small Business packages.
+Command used to extract and decompress Draytek running an RTOS.
 
 ```
-usage: extract_sb [-h] [--rtos RTOS] [--fs FS] [--dlm DLM] [--dlm-key1 DLM_KEY1]
+usage: extract_rtos [-h] [--rtos RTOS] [--fs FS] [--dlm DLM] [--dlm-key1 DLM_KEY1]
                   [--dlm-key2 DLM_KEY2]
                   firmware
 
@@ -114,12 +114,12 @@ options:
   --dlm-key2 DLM_KEY2   First key used to decrypt DLMs
 ```
 
-### extract soho ###
+### extract linux ###
 
-Command used to extract and decompress Draytek SOHO packages
+Command used to extract and decompress Draytek running linux
 
 ```
-usage: extract_soho [-h] [--fs FS] --key KEY firmware
+usage: extract_linux [-h] [--fs FS] --key KEY firmware
 
 positional arguments:
   firmware        Path to the firmware
